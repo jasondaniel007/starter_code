@@ -1,34 +1,25 @@
-import { fetchAPI } from "../api/apiClient";
+import apiClient from "../api/apiClient";
 import { COMMENT_API } from "../config/apiConfig";
 
 export async function fetchCommentsForThread(threadId) {
-  const res = await fetchAPI(COMMENT_API.GET_BY_THREAD(threadId), {
-    method: "GET",
-  });
-  return res.data;
+  const response = await apiClient.get(COMMENT_API.GET_BY_THREAD(threadId));
+  return response.data.data;
 }
 
 export async function postComment({ threadId, content }) {
-  const res = await fetchAPI(COMMENT_API.CREATE, {
-    method: "POST",
-    body: JSON.stringify({
-      thread: threadId,
-      content,
-    }),
+  const response = await apiClient.post(COMMENT_API.CREATE, {
+    thread: threadId,
+    content,
   });
-  return res.data;
+  return response.data.data;
 }
 
 export const upvoteComment = async (commentId) => {
-  const res = await fetchAPI(COMMENT_API.UPVOTE(commentId), {
-    method: "POST",
-  });
-  return res.data;
+  const response = await apiClient.post(COMMENT_API.UPVOTE(commentId));
+  return response.data.data;
 };
 
 export const downvoteComment = async (commentId) => {
-  const res = await fetchAPI(COMMENT_API.DOWNVOTE(commentId), {
-    method: "POST",
-  });
-  return res.data;
+  const response = await apiClient.post(COMMENT_API.DOWNVOTE(commentId));
+  return response.data.data;
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../store/authSlice";
 import "./Profile.css";
 
 const buildForm = (user) => ({
@@ -12,7 +13,8 @@ const buildForm = (user) => ({
 
 function Profile() {
   const navigate = useNavigate();
-  const { user, updateUser } = useAuth();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState(buildForm(user));
 
@@ -26,7 +28,7 @@ function Profile() {
 
   const handleSave = (e) => {
     e.preventDefault();
-    updateUser({ ...user, ...form });
+    dispatch(updateUser({ ...user, ...form }));
     setEditing(false);
   };
 

@@ -1,32 +1,27 @@
-import { fetchAPI } from "../api/apiClient";
+import apiClient from "../api/apiClient";
 import { THREAD_API } from "../config/apiConfig";
 
 export async function fetchRecentThreads() {
-  // Your Code Here
-  const response = await fetchAPI(THREAD_API.GET_ALL, { method: 'GET' });
-  return response.data;
+  const response = await apiClient.get(THREAD_API.GET_ALL);
+  return response.data.data;
 }
 
 export async function fetchThreadById(threadId) {
-  // Your Code Here
-  const response = await fetchAPI(THREAD_API.GET_BY_ID(threadId), { method: 'GET' });
-  return response.data; 
+  const response = await apiClient.get(THREAD_API.GET_BY_ID(threadId));
+  return response.data.data;
 }
 
 export const createThread = async (data) => {
-  // Your Code Here
-  const response = await fetchAPI(THREAD_API.CREATE, { method: 'POST', body: JSON.stringify(data) });
-  return response.data; 
+  const response = await apiClient.post(THREAD_API.CREATE, data);
+  return response.data.data;
 };
 
 export async function upvoteThread(threadId) {
-  // Your Code Here
-  const response = await fetchAPI(THREAD_API.UPVOTE(threadId), { method: 'POST' });
-  return response.data;
+  const response = await apiClient.post(THREAD_API.UPVOTE(threadId));
+  return response.data.data;
 }
 
 export async function downvoteThread(threadId) {
-  // Your Code Here
-  const response = await fetchAPI(THREAD_API.DOWNVOTE(threadId), { method: 'POST' });
-  return response.data; 
+  const response = await apiClient.post(THREAD_API.DOWNVOTE(threadId));
+  return response.data.data;
 }
