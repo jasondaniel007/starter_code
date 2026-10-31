@@ -1,8 +1,9 @@
 import { Container, Card, Form, Button, Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { login } from "../../services/authService";
-import { useAuth } from "../../context/AuthContext";
+import { loginUser } from "../../store/authSlice";
 import "./Auth.css";
 
 function Login() {
@@ -11,7 +12,7 @@ function Login() {
   const [error, setError] = useState(null);
   const [info, setInfo] = useState(null);
   const navigate = useNavigate();
-  const { loginUser } = useAuth();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function Login() {
     setInfo(null);
     try {
       const data = await login(form);
-      loginUser(data);
+      dispatch(loginUser(data));
       navigate("/home");
     } catch (err) {
       setError(err.message || "Failed to login");

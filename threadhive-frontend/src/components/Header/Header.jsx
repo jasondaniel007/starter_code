@@ -1,11 +1,13 @@
 import { Navbar, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/authSlice";
 import "./Header.css";
 
 function Header() {
   const navigate = useNavigate();
-  const { token, user, logout } = useAuth();
+  const dispatch = useDispatch();
+  const { token, user } = useSelector((state) => state.auth);
 
   const handleLogin = () => {
     navigate("/login");
@@ -16,7 +18,7 @@ function Header() {
   };
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
     navigate("/login");
   };
 

@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import { AuthProvider } from "./context/AuthContext";
 import "./App.css";
 
 const Login = lazy(() => import("./pages/Auth/Login"));
@@ -14,7 +13,6 @@ const Profile = lazy(() => import("./pages/User/Profile"));
 
 function App() {
   return (
-    <AuthProvider>
     <BrowserRouter>
       <div className="app-layout">
         <Header />
@@ -57,7 +55,6 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
-    </AuthProvider>
   );
 }
 
